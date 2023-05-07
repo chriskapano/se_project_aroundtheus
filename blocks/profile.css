@@ -60,6 +60,10 @@
     font-weight: 400;
     grid-area: description;
     margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: fit-content;
 }
 
 .profile__image {
@@ -90,7 +94,6 @@
         width: 100%;
         text-align: center;
         font-size: 14px;
-        padding-bottom: 36px;
     }
 
     .profile__title {
