@@ -17,7 +17,6 @@
     .header__image {
         width: 126px;
         height: 24px;
-        position: absolute;
-        left: 27px;
+        padding-left: 27px;
     }
 }

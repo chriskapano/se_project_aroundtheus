@@ -32,12 +32,13 @@
     height: 50px;
     margin-left: auto;
     border: solid 2px white;
+    border-radius: 2px;
 }
 
 .profile__add-button:hover {
     opacity: 0.6;
     cursor: pointer;
-    border-radius: 2px;
+    
 }
 
 .profile__title {
