@@ -11,6 +11,7 @@
     align-items: center;
     grid-column-gap: 18px;
     grid-row-gap: 7px;
+    margin-right: 12px;
 }
 
 .profile__edit-button {
@@ -70,7 +71,7 @@
     margin-right: 24px;
 }
 
-@media screen and (max-width:480px) {
+@media screen and (max-width:580px) {
     .profile {
         flex-direction: column;
     }
@@ -82,6 +83,7 @@
         width: 100%;
         padding-top: 26.25px;
         row-gap: 0px;
+        margin-right: 0;
     }
 
     .profile__description {

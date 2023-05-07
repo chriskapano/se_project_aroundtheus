@@ -10,13 +10,15 @@
     margin: 0;
 }
 
-@media screen and (max-width:480px) {
+@media screen and (max-width:580px) {
     .footer {
         margin-top: 48px;
-        margin-left: 19px;
-        margin-right: 19px;
         margin-bottom: 36px;
         font-size: 14px;
         line-height: 16.94px;
+    }
+
+    .footer__copy {
+        margin-left: 19px;
     }
 }
