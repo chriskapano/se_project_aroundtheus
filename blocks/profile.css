@@ -47,6 +47,10 @@
     font-weight: 500;
     grid-area: title;
     margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: fit-content;
 }
 
 .profile__description {
@@ -77,6 +81,7 @@
         justify-content: center;
         width: 100%;
         padding-top: 26.25px;
+        row-gap: 0px;
     }
 
     .profile__description {
@@ -98,5 +103,9 @@
     .profile__edit-button {
         height: 18px;
         width: 18px;
+    }
+
+    .profile__image {
+        margin-right: 0;
     }
 }
