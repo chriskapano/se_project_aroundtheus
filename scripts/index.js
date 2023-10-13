@@ -116,7 +116,7 @@ function getCardElement(cardData) {
 
   likeButton.addEventListener("click", handleLikeButton);
   deleteButton.addEventListener("click", handleDeleteCard);
-  cardImageEl.addEventListener("click", () => handlePreviewImage(data));
+  cardImageEl.addEventListener("click", () => handlePreviewImage(cardData));
 
   return cardElement;
 }
