@@ -39,20 +39,22 @@
       </footer>
     </div>
 
-    <div class="modal">
+    <!-- Edit Profile Modal -->
+
+    <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button class="modal__close"></button>
         <form class="modal__form">
           <p class="modal__heading">Edit Profile</p>
           <input
-            class="modal__title"
+            class="modal__input modal__input_name"
             type="text"
-            name="title"
+            name="name"
             placeholder="Jacques Cousteau"
             id="profile-title-input"
           />
           <input
-            class="modal__description"
+            class="modal__input modal__input_description"
             type="text"
             name="description"
             placeholder="Explorer"
@@ -63,12 +65,49 @@
       </div>
     </div>
 
+    <!-- Add Card Modal -->
+
+    <div class="modal" id="add-card-modal">
+      <div class="modal__container">
+        <button class="modal__close"></button>
+        <form class="modal__form" id="add-card-form">
+          <p class="modal__heading">New place</p>
+          <input
+            class="modal__input modal__input_title"
+            type="text"
+            name="title"
+            placeholder="Title"
+            id="add-card-title-input"
+          />
+          <input
+            class="modal__input modal__input_link"
+            type="text"
+            name="Link"
+            placeholder="Image link"
+            id="add-card-link-input"
+          />
+          <button class="modal__button">Create</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Image Preview Modal -->
+
+    <div class="modal" id="preview-image-modal">
+      <div class="modal__container modal__container_preview_image">
+        <button class="modal__close" type="button"></button>
+        <img class="modal__image" alt="" src="" />
+        <p class="modal__caption"></p>
+      </div>
+    </div>
+
     <template id="card-template">
       <li class="card">
         <img class="card__image" />
+        <button class="card__delete-button" type="button"></button>
         <div class="card__description">
           <h2 class="card__title"></h2>
-          <button type="button" class="card__like-button"></button>
+          <button class="card__like-button" type="button"></button>
         </div>
       </li>
     </template>

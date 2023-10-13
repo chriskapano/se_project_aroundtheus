@@ -1,51 +1,70 @@
 .card {
-    display: flex;
-    flex-direction: column;
-
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .card__image {
-    width: 282px;
-    height: 282px;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
+  width: 282px;
+  height: 282px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.card__image:hover {
+  cursor: pointer;
 }
 
 .card__description {
-    display: flex;
-    background-color: white;
-    color: black;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    padding-left: 20px;
-    padding-right: 20px;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    
+  display: flex;
+  background-color: white;
+  color: black;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .card__title {
-    margin: 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 220px;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 220px;
+}
+
+.card__delete-button {
+  position: absolute;
+  background-image: url(../images/Trash.svg);
+  background-color: transparent;
+  width: 18px;
+  height: 19.3px;
+  border: none;
+  right: 20px;
+  top: 20px;
+}
+
+.card__delete-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 .card__like-button {
-    background: transparent url(../images/like-inactive.svg) center no-repeat;
-    width: 21px;
-    height: 18px;
-    border: none;
+  background: transparent url(../images/like-inactive.svg) center no-repeat;
+  width: 21px;
+  height: 18px;
+  border: none;
+}
+
+.card__like-button_active {
+  background-image: url(../images/like-active.jpg);
 }
 
 .card__like-button:hover {
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-.card__like-button:active {
-    color: black;
+  opacity: 0.5;
+  cursor: pointer;
 }
