@@ -72,6 +72,25 @@
   line-height: 17px;
 }
 
+/* .modal__input_type_error {} */
+
+.modal__error {
+  font-size: 12px;
+  line-height: 15px;
+  color: red;
+  opacity: 0;
+  top: calc(100% + 5px);
+  left: 0;
+  transition: opacity 0.3s;
+}
+
+.modal__error_visible {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.6s;
+}
+
 .modal__button {
   background-color: black;
   color: white;
@@ -81,13 +100,25 @@
   font-size: 18px;
   line-height: 21.78px;
   font-weight: 400;
-  cursor: pointer;
   margin-top: 35px;
+}
+
+.modal__button_disabled {
+  opacity: 0.2;
+  color: black;
+  background-color: white;
 }
 
 .modal__button:hover {
   opacity: 0.6;
   cursor: pointer;
+}
+
+.modal__button_disabled:hover {
+  opacity: 0.2;
+  color: black;
+  background-color: white;
+  cursor: default;
 }
 
 .modal__container_preview_image {

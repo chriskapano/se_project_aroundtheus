@@ -60,8 +60,20 @@ const imageCaption = previewImageModal.querySelector(".modal__caption");
 
 // FUNCTIONS
 
+function escEvent(evt, action) {
+  const modalOpened = document.querySelector(".modal_opened");
+  if (evt.key === "Escape") {
+    action(modalOpened);
+  }
+}
+
+function handleEscape(evt) {
+  escEvent(evt, closePopup);
+}
+
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
+  document.addEventListener("keydown", handleEscape);
 }
 
 function openPopup(modal) {
