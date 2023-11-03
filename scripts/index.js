@@ -60,24 +60,37 @@ const imageCaption = previewImageModal.querySelector(".modal__caption");
 
 // FUNCTIONS
 
-function escEvent(evt, action) {
-  const modalOpened = document.querySelector(".modal_opened");
+function isOverlayClicked(event) {
+  return event.target === event.currentTarget;
+}
+
+function closeOnOverlayClick(modal, event) {
+  if (isOverlayClicked(event)) {
+    closePopup(modal);
+  }
+}
+
+function escEvent(evt, action, modal) {
   if (evt.key === "Escape") {
-    action(modalOpened);
+    action(modal);
   }
 }
 
 function handleEscape(evt) {
-  escEvent(evt, closePopup);
+  const modalOpened = document.querySelector(".modal_opened");
+  if (evt.key === "Escape") {
+    escEvent(evt, closePopup, modalOpened);
+  }
 }
 
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
-  document.addEventListener("keydown", handleEscape);
+  document.removeEventListener("keydown", handleEscape);
 }
 
 function openPopup(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscape);
 }
 
 function renderCard(cardData, wrapper) {
@@ -146,6 +159,18 @@ profileEditButton.addEventListener("click", () => {
 profileEditCloseButton.addEventListener("click", () =>
   closePopup(profileEditModal)
 );
+
+profileEditModal.addEventListener("click", (event) =>
+  closeOnOverlayClick(profileEditModal, event)
+);
+addCardModal.addEventListener("click", (event) =>
+  closeOnOverlayClick(addCardModal, event)
+);
+previewImageModal.addEventListener("click", (event) =>
+  closeOnOverlayClick(previewImageModal, event)
+);
+
+document.addEventListener("keydown", handleEscape);
 
 // add new card
 addNewCardButton.addEventListener("click", () => openPopup(addCardModal));
