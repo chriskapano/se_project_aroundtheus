@@ -70,16 +70,18 @@ function closeOnOverlayClick(modal, event) {
   }
 }
 
-function escEvent(evt, action, modal) {
+function isEscEvent(evt, action, modal) {
   if (evt.key === "Escape") {
     action(modal);
   }
 }
 
 function handleEscape(evt) {
-  const modalOpened = document.querySelector(".modal_opened");
   if (evt.key === "Escape") {
-    escEvent(evt, closePopup, modalOpened);
+    const modalOpened = document.querySelector(".modal_opened");
+    if (modalOpened) {
+      closePopup(modalOpened);
+    }
   }
 }
 
@@ -111,6 +113,7 @@ function handleAddCardFormSubmit(e) {
   const link = cardLinkInput.value;
   renderCard({ name, link }, cardsWrap);
   closePopup(addCardModal);
+  e.target.reset();
 }
 
 function handleLikeButton(evt) {
@@ -169,8 +172,6 @@ addCardModal.addEventListener("click", (event) =>
 previewImageModal.addEventListener("click", (event) =>
   closeOnOverlayClick(previewImageModal, event)
 );
-
-document.addEventListener("keydown", handleEscape);
 
 // add new card
 addNewCardButton.addEventListener("click", () => openPopup(addCardModal));
