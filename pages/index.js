@@ -1,3 +1,6 @@
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -25,8 +28,45 @@ const initialCards = [
   },
 ];
 
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
+// Import from Card
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+
+const cardTemplate = document
+  .querySelector("#card-template")
+  .content.querySelector(".card");
+
+const cardSelector = "#card-template";
+
+const handleImageClick = (data) => {
+  handlePreviewImage(data.name, data.link);
+};
+
+const card = new Card(cardData, cardSelector, handleImageClick);
+const cardElement = card.getView();
+
+// Import from FormValidator
+const settings = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+const profileEditFormElement = document.getElementById("profile-edit-modal");
+const profileEditFormValidator = new FormValidator(
+  settings,
+  profileEditFormElement
+);
+profileEditFormValidator.enableValidation();
+
+const addCardFormElementId = document.getElementById("add-card-modal");
+const addCardFormValidator = new FormValidator(settings, addCardFormElementId);
+addCardFormValidator.enableValidation();
 
 // WRAPPERS
 const cardsWrap = document.querySelector(".cards__list");
@@ -187,3 +227,6 @@ previewImageCloseButton.addEventListener("click", () =>
 );
 
 initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
+
+cardsWrap.appendChild(cardElement);
+card.getView();
