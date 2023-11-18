@@ -29,11 +29,6 @@ const initialCards = [
 ];
 
 // Import from Card
-const cardData = {
-  name: "Yosemite Valley",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-};
-
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
@@ -44,8 +39,11 @@ const handleImageClick = (data) => {
   handlePreviewImage(data.name, data.link);
 };
 
-const card = new Card(cardData, cardSelector, handleImageClick);
-const cardElement = card.getView();
+initialCards.forEach((cardData) => {
+  const card = new Card(cardData, cardSelector, handleImageClick);
+  const cardElement = card.getView();
+  document.querySelector(".cards__list").appendChild(cardElement);
+});
 
 // Import from FormValidator
 const settings = {
@@ -164,10 +162,10 @@ function handleDeleteCard(evt) {
   evt.target.closest(".card").remove();
 }
 
-function handlePreviewImage(data) {
-  imagePopUp.src = data.link;
-  imagePopUp.alt = `${data.name}`;
-  imageCaption.textContent = data.name;
+function handlePreviewImage(name, link) {
+  imagePopUp.src = link;
+  imagePopUp.alt = `${name}`;
+  imageCaption.textContent = name;
   openPopup(previewImageModal);
 }
 
@@ -226,7 +224,4 @@ previewImageCloseButton.addEventListener("click", () =>
   closePopup(previewImageModal)
 );
 
-initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
-
-cardsWrap.appendChild(cardElement);
-card.getView();
+// initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
