@@ -35,13 +35,13 @@ const cardTemplate = document
 
 const cardSelector = "#card-template";
 
-const handleImageClick = (name, link) => {
-  handlePreviewImage(name, link);
+const handleImageClick = (cardData) => {
+  handlePreviewImage(cardData);
 };
 
 initialCards.forEach((cardData) => {
   const card = new Card(cardData, cardSelector, () =>
-    handleImageClick(cardData.name, cardData.link)
+    handleImageClick(cardData)
   );
   const cardElement = card.getView();
   document.querySelector(".cards__list").appendChild(cardElement);
@@ -135,11 +135,6 @@ function openPopup(modal) {
   document.addEventListener("keydown", handleEscape);
 }
 
-// function renderCard(cardData, wrapper) {
-//   const cardElement = getCardElement(cardData);
-//   wrapper.prepend(cardElement);
-// }
-
 function renderCard(cardData, wrapper) {
   const card = new Card(cardData, cardSelector, handlePreviewImage);
   wrapper.prepend(card.getView());
@@ -230,5 +225,3 @@ addCardModalCloseButton.addEventListener("click", () =>
 previewImageCloseButton.addEventListener("click", () =>
   closePopup(previewImageModal)
 );
-
-// initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
