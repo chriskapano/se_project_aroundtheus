@@ -169,9 +169,9 @@ function handleDeleteCard(evt) {
   evt.target.closest(".card").remove();
 }
 
-function handlePreviewImage(name, link) {
+function handlePreviewImage({ name, link }) {
   imagePopUp.src = link;
-  imagePopUp.alt = `${name}`;
+  imagePopUp.alt = name;
   imageCaption.textContent = name;
   openPopup(previewImageModal);
 }
