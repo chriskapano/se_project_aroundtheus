@@ -35,12 +35,14 @@ const cardTemplate = document
 
 const cardSelector = "#card-template";
 
-const handleImageClick = (data) => {
-  handlePreviewImage(data.name, data.link);
+const handleImageClick = (name, link) => {
+  handlePreviewImage(name, link);
 };
 
 initialCards.forEach((cardData) => {
-  const card = new Card(cardData, cardSelector, handleImageClick);
+  const card = new Card(cardData, cardSelector, () =>
+    handleImageClick(cardData.name, cardData.link)
+  );
   const cardElement = card.getView();
   document.querySelector(".cards__list").appendChild(cardElement);
 });
@@ -133,9 +135,14 @@ function openPopup(modal) {
   document.addEventListener("keydown", handleEscape);
 }
 
+// function renderCard(cardData, wrapper) {
+//   const cardElement = getCardElement(cardData);
+//   wrapper.prepend(cardElement);
+// }
+
 function renderCard(cardData, wrapper) {
-  const cardElement = getCardElement(cardData);
-  wrapper.prepend(cardElement);
+  const card = new Card(cardData, cardSelector, handlePreviewImage);
+  wrapper.prepend(card.getView());
 }
 
 function handleProfileEditSubmit(e) {
