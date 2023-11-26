@@ -2,6 +2,9 @@ export default class FormValidator {
   constructor(settings, formElement) {
     this._settings = settings;
     this._formElement = formElement;
+    this._submitButton = this._formElement.querySelector(
+      settings.submitButtonSelector
+    );
 
     this._handleInput = this._handleInput.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
@@ -42,8 +45,8 @@ export default class FormValidator {
 
   disableButton() {
     // add logic to disable button here
-    submitButton.classList.add(inactiveButtonClass);
-    submitButton.disabled = true;
+    this._submitButton.classList.add(this._settings.inactiveButtonClass);
+    this._submitButton.disabled = true;
     return;
   }
 
