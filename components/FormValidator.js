@@ -40,6 +40,13 @@ export default class FormValidator {
     this._addHandlers();
   }
 
+  disableButton() {
+    // add logic to disable button here
+    submitButton.classList.add(inactiveButtonClass);
+    submitButton.disabled = true;
+    return;
+  }
+
   disableValidation() {
     this._formElement.removeEventListener("submit", this._handleSubmit);
 

@@ -214,7 +214,11 @@ previewImageModal.addEventListener("click", (event) =>
 );
 
 // add new card
-addNewCardButton.addEventListener("click", () => openPopup(addCardModal));
+addNewCardButton.addEventListener("click", () => {
+  // add disableButton
+  addCardFormValidator.disableButton();
+  openPopup(addCardModal);
+});
 
 addCardModalCloseButton.addEventListener("click", () =>
   closePopup(addCardModal)
