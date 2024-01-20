@@ -156,13 +156,13 @@ function handleAddCardFormSubmit(e) {
   e.target.reset();
 }
 
-function handleLikeButton(evt) {
-  evt.target.classList.toggle("card__like-button_active");
-}
+// function handleLikeButton(evt) {
+//   evt.target.classList.toggle("card__like-button_active");
+// }
 
-function handleDeleteCard(evt) {
-  evt.target.closest(".card").remove();
-}
+// function handleDeleteCard(evt) {
+//   evt.target.closest(".card").remove();
+// }
 
 function handlePreviewImage({ name, link }) {
   imagePopUp.src = link;
@@ -216,7 +216,7 @@ previewImageModal.addEventListener("click", (event) =>
 // add new card
 addNewCardButton.addEventListener("click", () => {
   // add disableButton
-  addCardFormValidator.disableButton();
+  addCardFormValidator._disableButton();
   openPopup(addCardModal);
 });
 
