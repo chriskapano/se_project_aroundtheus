@@ -8,15 +8,13 @@ export default class FormValidator {
 
     this._handleInput = this._handleInput.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
-
-    this._addHandlers();
   }
 
   _handleInput(event) {
     const inputElement = event.target;
     const options = this._settings;
     this._checkInputValidity(inputElement, options);
-    this._toggleButtonState(options);
+    this._toggleButtonState();
   }
 
   _handleSubmit(event) {
@@ -81,7 +79,7 @@ export default class FormValidator {
     this._enableButton();
   }
 
-  _disableButton() {
+  disableButton() {
     this._submitButton.classList.add(this._settings.inactiveButtonClass);
     this._submitButton.disabled = true;
   }
@@ -93,18 +91,6 @@ export default class FormValidator {
 
   enableValidation() {
     this._addHandlers();
-  }
-
-  disableValidation() {
-    this._formElement.removeEventListener("submit", this._handleSubmit);
-
-    const inputElements = [
-      ...this._formElement.querySelectorAll(this._settings.inputSelector),
-    ];
-
-    inputElements.forEach((inputElement) => {
-      inputElement.removeEventListener("input", this._handleInput);
-    });
   }
 
   resetValidation() {

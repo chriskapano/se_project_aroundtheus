@@ -28,6 +28,14 @@ const initialCards = [
   },
 ];
 
+// WRAPPERS
+const cardsWrap = document.querySelector(".cards__list");
+const profileEditModal = document.querySelector("#profile-edit-modal");
+const addCardModal = document.querySelector("#add-card-modal");
+const previewImageModal = document.querySelector("#preview-image-modal");
+const profileEditForm = profileEditModal.querySelector(".modal__form");
+const addCardFormElement = addCardModal.querySelector(".modal__form");
+
 // Import from Card
 const cardTemplate = document
   .querySelector("#card-template")
@@ -35,17 +43,19 @@ const cardTemplate = document
 
 const cardSelector = "#card-template";
 
-const handleImageClick = (cardData) => {
-  handlePreviewImage(cardData);
-};
-
 initialCards.forEach((cardData) => {
   const card = new Card(cardData, cardSelector, () =>
-    handleImageClick(cardData)
+    handlePreviewImage(cardData)
   );
   const cardElement = card.getView();
-  document.querySelector(".cards__list").appendChild(cardElement);
+  cardsWrap.appendChild(cardElement);
 });
+
+// function createCard(item) {
+//   // here you create a card
+//   const cardElement =
+//   return cardElement.getView();
+// }
 
 // Import from FormValidator
 const settings = {
@@ -67,14 +77,6 @@ profileEditFormValidator.enableValidation();
 const addCardFormElementId = document.getElementById("add-card-modal");
 const addCardFormValidator = new FormValidator(settings, addCardFormElementId);
 addCardFormValidator.enableValidation();
-
-// WRAPPERS
-const cardsWrap = document.querySelector(".cards__list");
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const addCardModal = document.querySelector("#add-card-modal");
-const previewImageModal = document.querySelector("#preview-image-modal");
-const profileEditForm = profileEditModal.querySelector(".modal__form");
-const addCardFormElement = addCardModal.querySelector(".modal__form");
 
 // Buttons and other DOM nodes
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -156,14 +158,6 @@ function handleAddCardFormSubmit(e) {
   e.target.reset();
 }
 
-// function handleLikeButton(evt) {
-//   evt.target.classList.toggle("card__like-button_active");
-// }
-
-// function handleDeleteCard(evt) {
-//   evt.target.closest(".card").remove();
-// }
-
 function handlePreviewImage({ name, link }) {
   imagePopUp.src = link;
   imagePopUp.alt = name;
@@ -216,7 +210,7 @@ previewImageModal.addEventListener("click", (event) =>
 // add new card
 addNewCardButton.addEventListener("click", () => {
   // add disableButton
-  addCardFormValidator._disableButton();
+  addCardFormValidator.disableButton();
   openPopup(addCardModal);
 });
 
