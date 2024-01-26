@@ -44,18 +44,16 @@ const cardTemplate = document
 const cardSelector = "#card-template";
 
 initialCards.forEach((cardData) => {
-  const card = new Card(cardData, cardSelector, () =>
-    handlePreviewImage(cardData)
-  );
-  const cardElement = card.getView();
+  const cardElement = createCard(cardData);
   cardsWrap.appendChild(cardElement);
 });
 
-// function createCard(item) {
-//   // here you create a card
-//   const cardElement =
-//   return cardElement.getView();
-// }
+function createCard(cardData) {
+  const card = new Card(cardData, cardSelector, () =>
+    handlePreviewImage(cardData)
+  );
+  return card.getView();
+}
 
 // Import from FormValidator
 const settings = {
