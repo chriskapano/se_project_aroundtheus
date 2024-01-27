@@ -72,7 +72,7 @@ export default class FormValidator {
   }
 
   _toggleButtonState() {
-    if (this._hasInvalidInput()) {
+    if (!this._formElement.checkValidity()) {
       this.disableButton();
       return;
     }
