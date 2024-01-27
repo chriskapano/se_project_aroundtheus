@@ -23,6 +23,7 @@ export default class FormValidator {
 
   _addHandlers() {
     this._formElement.addEventListener("submit", this._handleSubmit);
+    this._toggleButtonState();
 
     const inputElements = [
       ...this._formElement.querySelectorAll(this._settings.inputSelector),

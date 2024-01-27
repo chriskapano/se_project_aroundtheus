@@ -37,10 +37,6 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
 
 // Import from Card
-const cardTemplate = document
-  .querySelector("#card-template")
-  .content.querySelector(".card");
-
 const cardSelector = "#card-template";
 
 initialCards.forEach((cardData) => {
@@ -65,15 +61,10 @@ const settings = {
   errorClass: "modal__error_visible",
 };
 
-const profileEditFormElement = document.getElementById("profile-edit-modal");
-const profileEditFormValidator = new FormValidator(
-  settings,
-  profileEditFormElement
-);
+const profileEditFormValidator = new FormValidator(settings, profileEditForm);
 profileEditFormValidator.enableValidation();
 
-const addCardFormElementId = document.getElementById("add-card-modal");
-const addCardFormValidator = new FormValidator(settings, addCardFormElementId);
+const addCardFormValidator = new FormValidator(settings, addCardFormElement);
 addCardFormValidator.enableValidation();
 
 // Buttons and other DOM nodes
@@ -110,12 +101,6 @@ function closeOnOverlayClick(modal, event) {
   }
 }
 
-function isEscEvent(evt, action, modal) {
-  if (evt.key === "Escape") {
-    action(modal);
-  }
-}
-
 function handleEscape(evt) {
   if (evt.key === "Escape") {
     const modalOpened = document.querySelector(".modal_opened");
@@ -136,8 +121,7 @@ function openPopup(modal) {
 }
 
 function renderCard(cardData, wrapper) {
-  const card = new Card(cardData, cardSelector, handlePreviewImage);
-  wrapper.prepend(card.getView());
+  wrapper.prepend(createCard(cardData));
 }
 
 function handleProfileEditSubmit(e) {
@@ -154,6 +138,7 @@ function handleAddCardFormSubmit(e) {
   renderCard({ name, link }, cardsWrap);
   closePopup(addCardModal);
   e.target.reset();
+  addCardFormValidator.disableButton();
 }
 
 function handlePreviewImage({ name, link }) {
@@ -161,24 +146,6 @@ function handlePreviewImage({ name, link }) {
   imagePopUp.alt = name;
   imageCaption.textContent = name;
   openPopup(previewImageModal);
-}
-
-function getCardElement(cardData) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-
-  cardTitleEl.textContent = cardData.name;
-  cardImageEl.alt = cardData.name;
-  cardImageEl.src = cardData.link;
-
-  likeButton.addEventListener("click", handleLikeButton);
-  deleteButton.addEventListener("click", handleDeleteCard);
-  cardImageEl.addEventListener("click", () => handlePreviewImage(cardData));
-
-  return cardElement;
 }
 
 // EVENT LISTENERS
@@ -207,8 +174,7 @@ previewImageModal.addEventListener("click", (event) =>
 
 // add new card
 addNewCardButton.addEventListener("click", () => {
-  // add disableButton
-  addCardFormValidator.disableButton();
+  // addCardFormValidator.disableButton();
   openPopup(addCardModal);
 });
 
