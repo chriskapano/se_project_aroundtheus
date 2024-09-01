@@ -37,7 +37,7 @@ export default PopupWithForm;
 
 // move below code to index.js
 
-const newCardPopup = new PopupWithForm("#add-card-modal", () => {});
-newCardPopup.open();
+// const newCardPopup = new PopupWithForm("#add-card-modal", () => {});
+// newCardPopup.open();
 
-newCardPopup.close();
+// newCardPopup.close();
