@@ -118,15 +118,17 @@ function handleProfileEditSubmit(e) {
   closePopup(profileEditModal);
 }
 
-function handleAddCardFormSubmit(e) {
+function handleAddCardFormSubmit(e, formValues) {
   e.preventDefault();
-  const name = cardTitleInput.value;
-  const link = cardLinkInput.value;
+  // const name = cardTitleInput.value;
+  // const link = cardLinkInput.value;
+  const { name, link } = formValues;
   const newCardData = { name, link };
 
   cardSection.addItem(createCard(newCardData));
 
-  closePopup(addCardModal);
+  // closePopup(addCardModal);
+  newCardPopup.close();
   e.target.reset();
   addCardFormValidator.disableButton();
 }
