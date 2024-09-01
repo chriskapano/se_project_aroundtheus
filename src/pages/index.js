@@ -48,13 +48,20 @@ addCardFormValidator.enableValidation();
 
 // Import from PopupWithForm
 
-const newCardPopup = new PopupWithForm(addCardModal, handleAddCardFormSubmit);
+const newCardPopup = new PopupWithForm(
+  "#add-card-modal",
+  handleAddCardFormSubmit
+);
 newCardPopup.setEventListeners();
 
 // Import from PopupWithImage
 
-const imagePopUp = new PopupWithImage(previewImageModal);
+const imagePopUp = new PopupWithImage("#preview-image-modal");
 imagePopUp.setEventListeners();
+
+// Profile DOM nodes
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
 
 // Import from UserInfo
 
@@ -70,10 +77,6 @@ const profileEditCloseButton = profileEditModal.querySelector(".modal__close");
 const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const previewImageCloseButton =
   previewImageModal.querySelector(".modal__close");
-
-// Profile DOM nodes
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
 
 // FORM DATA
 const profileTitleInput = profileEditForm.querySelector(".modal__input_name");
