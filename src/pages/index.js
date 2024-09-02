@@ -56,7 +56,7 @@ newCardPopup.setEventListeners();
 
 const editCardPopup = new PopupWithForm(
   "#profile-edit-modal",
-  handleAddCardFormSubmit
+  handleProfileEditSubmit
 );
 editCardPopup.setEventListeners();
 
@@ -94,20 +94,20 @@ const cardLinkInput = addCardFormElement.querySelector(".modal__input_link");
 
 // FUNCTIONS
 
-function isOverlayClicked(event) {
-  return event.target === event.currentTarget;
-}
+// function isOverlayClicked(event) {
+//   return event.target === event.currentTarget;
+// }
 
-function closeOnOverlayClick(modal, event) {
-  if (isOverlayClicked(event)) {
-    closePopup(modal);
-  }
-}
+// function closeOnOverlayClick(modal, event) {
+//   if (isOverlayClicked(event)) {
+//     closePopup(modal);
+//   }
+// }
 
-function renderCard(cardData) {
-  const cardElement = createCard(cardData);
-  cardSection.addItem(cardElement);
-}
+// function renderCard(cardData) {
+//   const cardElement = createCard(cardData);
+//   cardSection.addItem(cardElement);
+// }
 
 function handleProfileEditSubmit(e) {
   e.preventDefault();
@@ -115,19 +115,16 @@ function handleProfileEditSubmit(e) {
     name: profileTitleInput.value,
     job: profileDescriptionInput.value,
   });
-  closePopup(profileEditModal);
+  editCardPopup.close();
 }
 
 function handleAddCardFormSubmit(e, formValues) {
   e.preventDefault();
-  // const name = cardTitleInput.value;
-  // const link = cardLinkInput.value;
-  const { name, link } = formValues;
-  const newCardData = { name, link };
+  const { title, Link } = formValues;
+  const newCardData = { name: title, link: Link };
 
   cardSection.addItem(createCard(newCardData));
 
-  // closePopup(addCardModal);
   newCardPopup.close();
   e.target.reset();
   addCardFormValidator.disableButton();
