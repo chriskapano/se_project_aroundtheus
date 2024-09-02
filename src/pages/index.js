@@ -94,27 +94,15 @@ const cardLinkInput = addCardFormElement.querySelector(".modal__input_link");
 
 // FUNCTIONS
 
-// function isOverlayClicked(event) {
-//   return event.target === event.currentTarget;
-// }
-
-// function closeOnOverlayClick(modal, event) {
-//   if (isOverlayClicked(event)) {
-//     closePopup(modal);
-//   }
-// }
-
-// function renderCard(cardData) {
-//   const cardElement = createCard(cardData);
-//   cardSection.addItem(cardElement);
-// }
-
 function handleProfileEditSubmit(e) {
   e.preventDefault();
+  const inputValues = editCardPopup._getInputValues();
+
   userInfo.setUserInfo({
-    name: profileTitleInput.value,
-    job: profileDescriptionInput.value,
+    name: inputValues.name,
+    job: inputValues.description,
   });
+
   editCardPopup.close();
 }
 
