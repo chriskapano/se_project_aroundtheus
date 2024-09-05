@@ -94,13 +94,11 @@ const cardLinkInput = addCardFormElement.querySelector(".modal__input_link");
 
 // FUNCTIONS
 
-function handleProfileEditSubmit(e) {
+function handleProfileEditSubmit(e, formValues) {
   e.preventDefault();
-  const inputValues = editCardPopup._getInputValues();
-
   userInfo.setUserInfo({
-    name: inputValues.name,
-    job: inputValues.description,
+    name: formValues.name,
+    job: formValues.description,
   });
 
   editCardPopup.close();

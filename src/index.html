@@ -45,31 +45,35 @@
         <button class="modal__close"></button>
         <form class="modal__form">
           <p class="modal__heading">Edit Profile</p>
-          <input
-            class="modal__input modal__input_name"
-            type="text"
-            name="name"
-            placeholder="Jacques Cousteau"
-            id="profile-title-input"
-            maxlength="40"
-            minlength="2"
-            required
-          />
-          <span class="modal__error" id="profile-title-input-error"></span>
-          <input
-            class="modal__input modal__input_description"
-            type="text"
-            name="description"
-            placeholder="Explorer"
-            id="profile-description-input"
-            maxlength="200"
-            minlength="2"
-            required
-          />
-          <span
-            class="modal__error"
-            id="profile-description-input-error"
-          ></span>
+          <label for="profile-title-input" class="modal__label">
+            <input
+              class="modal__input modal__input_name"
+              type="text"
+              name="name"
+              placeholder="Jacques Cousteau"
+              id="profile-title-input"
+              maxlength="40"
+              minlength="2"
+              required
+            />
+            <span class="modal__error" id="profile-title-input-error"></span>
+          </label>
+          <label for="profile-description-input" class="modal__label">
+            <input
+              class="modal__input modal__input_description"
+              type="text"
+              name="description"
+              placeholder="Explorer"
+              id="profile-description-input"
+              maxlength="200"
+              minlength="2"
+              required
+            />
+            <span
+              class="modal__error"
+              id="profile-description-input-error"
+            ></span>
+          </label>
           <button class="modal__button">Save</button>
         </form>
       </div>
