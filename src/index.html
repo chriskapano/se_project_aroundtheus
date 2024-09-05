@@ -82,26 +82,30 @@
         <button class="modal__close"></button>
         <form class="modal__form" id="add-card-form">
           <p class="modal__heading">New place</p>
-          <input
-            class="modal__input modal__input_title"
-            type="text"
-            name="title"
-            placeholder="Title"
-            id="add-card-title-input"
-            maxlength="30"
-            minlength="1"
-            required
-          />
-          <span class="modal__error" id="add-card-title-input-error"></span>
-          <input
-            class="modal__input modal__input_link"
-            type="url"
-            name="Link"
-            placeholder="Image link"
-            id="add-card-link-input"
-            required
-          />
-          <span class="modal__error" id="add-card-link-input-error"></span>
+          <label for="add-card-title-input" class="modal__label">
+            <input
+              class="modal__input modal__input_title"
+              type="text"
+              name="title"
+              placeholder="Title"
+              id="add-card-title-input"
+              maxlength="30"
+              minlength="1"
+              required
+            />
+            <span class="modal__error" id="add-card-title-input-error"></span>
+          </label>
+          <label for="add-card-link-input" class="modal__label">
+            <input
+              class="modal__input modal__input_link"
+              type="url"
+              name="Link"
+              placeholder="Image link"
+              id="add-card-link-input"
+              required
+            />
+            <span class="modal__error" id="add-card-link-input-error"></span>
+          </label>
           <button class="modal__button">Create</button>
         </form>
       </div>

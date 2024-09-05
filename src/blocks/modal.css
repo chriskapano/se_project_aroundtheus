@@ -61,6 +61,10 @@
   margin: 0 0 53px 0;
 }
 
+.modal__label {
+  position: relative;
+}
+
 .modal__input {
   height: 27.26px;
   width: 354px;
@@ -79,9 +83,13 @@
   line-height: 15px;
   color: red;
   opacity: 0;
-  top: calc(100% + 5px);
+  /* top: calc(100% + 5px);
+   */
+  top: 27px;
   left: 0;
+  width: 354px;
   transition: opacity 0.3s;
+  position: absolute;
 }
 
 .modal__error_visible {
