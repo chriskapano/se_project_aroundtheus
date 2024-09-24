@@ -5,15 +5,33 @@ import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import "./index.css";
-import { initialCards, settings } from "../utils.js";
+import { settings } from "../utils.js";
+import Api from "../components/Api.js";
 
 // WRAPPERS
-const cardsWrap = document.querySelector(".cards__list");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
-const previewImageModal = document.querySelector("#preview-image-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
+
+// Import from Api
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "3e30a101-1104-4b9d-af70-47714cfc57be",
+    "Content-Type": "application/json",
+  },
+});
+
+// Fetch and use user info
+api.getUserInfo().then((userData) => {
+  userInfo.setUserInfo({ name: userData.name, job: userData.about });
+});
+
+// Fetch and use initial cards
+api.getInitialCards().then((cardsData) => {
+  cardSection.renderItems(cardsData);
+});
 
 // Import from Card
 const cardSelector = "#card-template";
@@ -25,9 +43,10 @@ function createCard(cardData) {
   return card.getView();
 }
 
+// Render Cards Section
 const cardSection = new Section(
   {
-    items: initialCards,
+    items: [],
     renderer: (item) => {
       const cardElement = createCard(item);
       cardSection.addItem(cardElement);
@@ -35,8 +54,6 @@ const cardSection = new Section(
   },
   ".cards__list"
 );
-
-cardSection.renderItems();
 
 // Import from FormValidator
 
@@ -65,10 +82,6 @@ editCardPopup.setEventListeners();
 const imagePopUp = new PopupWithImage("#preview-image-modal");
 imagePopUp.setEventListeners();
 
-// Profile DOM nodes
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
-
 // Import from UserInfo
 
 const userInfo = new UserInfo({
@@ -79,41 +92,41 @@ const userInfo = new UserInfo({
 // Buttons and other DOM nodes
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addNewCardButton = document.querySelector(".profile__add-button");
-const profileEditCloseButton = profileEditModal.querySelector(".modal__close");
-const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
-const previewImageCloseButton =
-  previewImageModal.querySelector(".modal__close");
 
 // FORM DATA
 const profileTitleInput = profileEditForm.querySelector(".modal__input_name");
 const profileDescriptionInput = profileEditForm.querySelector(
   ".modal__input_description"
 );
-const cardTitleInput = addCardFormElement.querySelector(".modal__input_title");
-const cardLinkInput = addCardFormElement.querySelector(".modal__input_link");
 
 // FUNCTIONS
 
 function handleProfileEditSubmit(e, formValues) {
   e.preventDefault();
-  userInfo.setUserInfo({
-    name: formValues.name,
-    job: formValues.description,
-  });
-
-  editCardPopup.close();
+  api
+    .updateUserProfile(formValues.name, formValues.description)
+    .then((updatedUserData) => {
+      userInfo.setUserInfo({
+        name: updatedUserData.name,
+        job: updatedUserData.about,
+      });
+      editCardPopup.close();
+    })
+    .catch((err) => console.error(err));
 }
 
 function handleAddCardFormSubmit(e, formValues) {
   e.preventDefault();
-  const { title, Link } = formValues;
-  const newCardData = { name: title, link: Link };
-
-  cardSection.addItem(createCard(newCardData));
-
-  newCardPopup.close();
-  e.target.reset();
-  addCardFormValidator.disableButton();
+  const { title, link } = formValues;
+  api
+    .addCard(title, link)
+    .then((newCard) => {
+      cardSection.addItem(createCard(newCard));
+      newCardPopup.close();
+      e.target.reset();
+      addCardFormValidator.disableButton();
+    })
+    .catch((err) => console.error(err));
 }
 
 function handlePreviewImage(cardData) {
