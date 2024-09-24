@@ -72,4 +72,8 @@ export default class Api {
         console.error(err);
       });
   }
+
+  getAppInfo() {
+    return Promise.all([this.getUserInfo(), this.getInitialCardsI()]);
+  }
 }

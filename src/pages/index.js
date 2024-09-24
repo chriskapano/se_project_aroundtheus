@@ -55,6 +55,16 @@ const cardSection = new Section(
   ".cards__list"
 );
 
+api
+  .getAppInfo()
+  .then(([userData, cardsData]) => {
+    userInfo.setUserInfo({ name: userData.name, job: userData.about });
+    cardSection.renderItems(cardsData);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
 // Import from FormValidator
 
 const profileEditFormValidator = new FormValidator(settings, profileEditForm);
