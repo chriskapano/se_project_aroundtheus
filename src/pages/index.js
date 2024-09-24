@@ -37,8 +37,13 @@ api.getInitialCards().then((cardsData) => {
 const cardSelector = "#card-template";
 
 function createCard(cardData) {
-  const card = new Card(cardData, cardSelector, () =>
-    handlePreviewImage(cardData)
+  const card = new Card(
+    cardData,
+    cardSelector,
+    () => handlePreviewImage(cardData),
+    (cardId) => handleDeleteCard(card, cardId),
+    (cardId, isLiked) => handleLikeToggle(card, cardId, isLiked),
+    currentUserId
   );
   return card.getView();
 }
@@ -87,6 +92,12 @@ const editCardPopup = new PopupWithForm(
 );
 editCardPopup.setEventListeners();
 
+const deleteCardPopup = new PopupWithForm(
+  "#delete-card-modal",
+  handleDeleteCardSubmit
+);
+deleteCardPopup.setEventListeners();
+
 // Import from PopupWithImage
 
 const imagePopUp = new PopupWithImage("#preview-image-modal");
@@ -102,6 +113,7 @@ const userInfo = new UserInfo({
 // Buttons and other DOM nodes
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addNewCardButton = document.querySelector(".profile__add-button");
+const deleteCardButton = document.querySelector(".card__delete-button");
 
 // FORM DATA
 const profileTitleInput = profileEditForm.querySelector(".modal__input_name");
@@ -139,8 +151,42 @@ function handleAddCardFormSubmit(e, formValues) {
     .catch((err) => console.error(err));
 }
 
+function handleDeleteCard(e, cardInstance, cardId) {
+  e.preventDefault();
+  api
+    .deleteCard(cardId)
+    .then(() => {
+      cardInstance.deleteCard();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
 function handlePreviewImage(cardData) {
   imagePopUp.open(cardData);
+}
+
+function handleLikeToggle(cardInstance, cardId, isLiked) {
+  if (isLiked) {
+    api
+      .removeLike(cardId)
+      .then((updatedCardData) => {
+        cardInstance.updateLikes(updatedCardData.likes);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  } else {
+    api
+      .addLike(cardId)
+      .then((updatedCardData) => {
+        cardInstance.updateLikes(updatedCardData.likes);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 }
 
 // EVENT LISTENERS
@@ -155,4 +201,9 @@ profileEditButton.addEventListener("click", () => {
 // add new card
 addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
+});
+
+// delete card pop up
+deleteCardButton.addEventListener("click", () => {
+  deleteCardPopup.open();
 });

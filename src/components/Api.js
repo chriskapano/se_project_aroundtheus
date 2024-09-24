@@ -73,6 +73,34 @@ export default class Api {
       });
   }
 
+  // Method to delete a card
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  // Method to add like to card
+  addLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._checkResponse);
+  }
+
+  // Method to remove like from card
+  removeLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._checkResponse);
+  }
+
   getAppInfo() {
     return Promise.all([this.getUserInfo(), this.getInitialCardsI()]);
   }
