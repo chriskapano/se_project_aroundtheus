@@ -74,6 +74,24 @@
   margin-right: 24px;
 }
 
+.profile__image:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.profile__pencil {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  transform: translate(175%, 0%);
+  display: none;
+}
+
+.profile__pencil:hover {
+  display: block;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 580px) {
   .profile {
     flex-direction: column;
