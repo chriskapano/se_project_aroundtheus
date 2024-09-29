@@ -1,7 +1,7 @@
 export default class Api {
   constructor(options) {
-    this._baseUrl = options._baseUrl;
-    this._headers = options._headers;
+    this._baseUrl = options.baseUrl;
+    this._headers = options.headers;
   }
 
   // Method to check the response status

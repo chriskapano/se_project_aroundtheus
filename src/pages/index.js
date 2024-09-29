@@ -94,7 +94,7 @@ editCardPopup.setEventListeners();
 
 const deleteCardPopup = new PopupWithForm(
   "#delete-card-modal",
-  handleDeleteCardSubmit
+  api.deleteCard()
 );
 deleteCardPopup.setEventListeners();
 
@@ -204,6 +204,6 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 // delete card pop up
-deleteCardButton.addEventListener("click", () => {
-  deleteCardPopup.open();
-});
+// deleteCardButton.addEventListener("click", () => {
+//   deleteCardPopup.open();
+// });
