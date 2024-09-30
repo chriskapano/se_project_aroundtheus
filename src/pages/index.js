@@ -92,10 +92,7 @@ const editCardPopup = new PopupWithForm(
 );
 editCardPopup.setEventListeners();
 
-const deleteCardPopup = new PopupWithForm(
-  "#delete-card-modal",
-  api.deleteCard()
-);
+const deleteCardPopup = new PopupWithForm("#delete-card-modal", api.deleteCard);
 deleteCardPopup.setEventListeners();
 
 // Import from PopupWithImage
@@ -151,11 +148,17 @@ function handleAddCardFormSubmit(e, formValues) {
     .catch((err) => console.error(err));
 }
 
-function handleDeleteCard(e, cardInstance, cardId) {
-  e.preventDefault();
+function handleDeleteCard(cardInstance, cardId) {
+  if (!cardId) {
+    console.error("Card ID is undefined or missing. Unable to delete card.");
+    return;
+  }
+  console.log(`Deleting card with ID: ${cardId}`);
+
   api
     .deleteCard(cardId)
     .then(() => {
+      console.log(`Successfully deleted card with ID: ${cardId}`);
       cardInstance.deleteCard();
     })
     .catch((err) => {
