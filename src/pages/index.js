@@ -42,8 +42,7 @@ function createCard(cardData) {
     cardSelector,
     () => handlePreviewImage(cardData),
     (cardId) => handleDeleteCard(card, cardId),
-    (cardId, isLiked) => handleLikeToggle(card, cardId, isLiked),
-    currentUserId
+    (cardId, isLiked) => handleLikeToggle(card, cardId, isLiked)
   );
   return card.getView();
 }
@@ -136,9 +135,9 @@ function handleProfileEditSubmit(e, formValues) {
 
 function handleAddCardFormSubmit(e, formValues) {
   e.preventDefault();
-  const { title, link } = formValues;
+  const { name, link } = formValues;
   api
-    .addCard(title, link)
+    .addCard(name, link)
     .then((newCard) => {
       cardSection.addItem(createCard(newCard));
       newCardPopup.close();
