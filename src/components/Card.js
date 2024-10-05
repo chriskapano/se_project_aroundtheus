@@ -18,10 +18,6 @@ export default class Card {
     this._handleLikeToggle = handleLikeToggle;
   }
 
-  _isLikedbyUser() {
-    return this._likes.some((like) => like._id === this._userId);
-  }
-
   _updateLikeStatus() {
     const likeButton = this._cardElement.querySelector(".card__like-button");
 
