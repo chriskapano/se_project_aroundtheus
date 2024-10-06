@@ -29,11 +29,12 @@ export default class Card {
   // }
 
   _setEventListeners() {
-    // this._cardElement
-    //   .querySelector(".card__like-button")
-    //   .addEventListener("click", () => {
-    //     this._handleLikeToggle(this._id, this._isLikedbyUser());
-    //   });
+    this._cardElement
+      .querySelector(".card__like-button")
+      .addEventListener("click", () => {
+        // this._handleLikeToggle(this._id, this._isLikedbyUser());
+        this._handleLikeToggle(this._id);
+      });
 
     this._cardElement
       .querySelector(".card__delete-button")
