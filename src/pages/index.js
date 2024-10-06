@@ -91,6 +91,8 @@ const editCardPopup = new PopupWithForm(
 );
 editCardPopup.setEventListeners();
 
+// const editAvatarPopup = new PopupWithForm("edit-avatar-modal");
+
 const deleteCardPopup = new PopupWithForm("#delete-card-modal", api.deleteCard);
 deleteCardPopup.setEventListeners();
 
@@ -110,6 +112,7 @@ const userInfo = new UserInfo({
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const deleteCardButton = document.querySelector(".card__delete-button");
+const editAvatarButton = document.querySelector(".profile__image");
 
 // FORM DATA
 const profileTitleInput = profileEditForm.querySelector(".modal__input_name");
@@ -135,9 +138,9 @@ function handleProfileEditSubmit(e, formValues) {
 
 function handleAddCardFormSubmit(e, formValues) {
   e.preventDefault();
-  const { name, link } = formValues;
+  const { title, link } = formValues;
   api
-    .addCard(name, link)
+    .addCard(title, link)
     .then((newCard) => {
       cardSection.addItem(createCard(newCard));
       newCardPopup.close();
@@ -145,6 +148,10 @@ function handleAddCardFormSubmit(e, formValues) {
       addCardFormValidator.disableButton();
     })
     .catch((err) => console.error(err));
+}
+
+function handleAvatarEditSubmit(e, formValues) {
+  e.preventDefault();
 }
 
 function handleDeleteCard(cardInstance, cardId) {
@@ -203,6 +210,11 @@ profileEditButton.addEventListener("click", () => {
 // add new card
 addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
+});
+
+// edit avatar pop up
+editAvatarButton.addEventListener("click", () => {
+  editAvatarPopup.open();
 });
 
 // delete card pop up
