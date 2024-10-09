@@ -91,7 +91,11 @@ const editCardPopup = new PopupWithForm(
 );
 editCardPopup.setEventListeners();
 
-// const editAvatarPopup = new PopupWithForm("edit-avatar-modal");
+const editAvatarPopup = new PopupWithForm(
+  "#edit-avatar-modal",
+  handleAvatarEditSubmit
+);
+editAvatarPopup.setEventListeners();
 
 const deleteCardPopup = new PopupWithForm("#delete-card-modal", api.deleteCard);
 deleteCardPopup.setEventListeners();
@@ -111,7 +115,6 @@ const userInfo = new UserInfo({
 // Buttons and other DOM nodes
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addNewCardButton = document.querySelector(".profile__add-button");
-const deleteCardButton = document.querySelector(".card__delete-button");
 const editAvatarButton = document.querySelector(".profile__image");
 
 // FORM DATA
@@ -150,8 +153,13 @@ function handleAddCardFormSubmit(e, formValues) {
     .catch((err) => console.error(err));
 }
 
-function handleAvatarEditSubmit(e, formValues) {
+function handleAvatarEditSubmit(e, formValue) {
   e.preventDefault();
+  const { link } = formValue;
+  api
+    .updateUserAvatar(link)
+    .then()
+    .catch((err) => console.error(err));
 }
 
 function handleDeleteCard(cardInstance, cardId) {
@@ -216,8 +224,3 @@ addNewCardButton.addEventListener("click", () => {
 editAvatarButton.addEventListener("click", () => {
   editAvatarPopup.open();
 });
-
-// delete card pop up
-// deleteCardButton.addEventListener("click", () => {
-//   deleteCardPopup.open();
-// });
