@@ -42,7 +42,7 @@ function createCard(cardData) {
     cardSelector,
     () => handlePreviewImage(cardData),
     (cardId) => handleDeleteCard(card, cardId),
-    (cardId, isLiked) => handleLikeToggle(card, cardId, isLiked)
+    (card, cardId, isLiked) => handleLikeToggle(card, cardId, isLiked)
   );
   return card.getView();
 }
