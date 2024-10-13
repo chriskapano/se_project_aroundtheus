@@ -74,6 +74,10 @@
   margin-right: 24px;
 }
 
+.profile__image-wrapper {
+  position: relative;
+}
+
 .profile__image:hover {
   opacity: 0.6;
   cursor: pointer;
@@ -83,13 +87,12 @@
   position: absolute;
   width: 26px;
   height: 26px;
-  transform: translate(175%, 0%);
+  transform: translate(185%, -285%);
   display: none;
 }
 
-.profile__pencil:hover {
+.profile__image-wrapper:hover .profile__pencil {
   display: block;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 580px) {
