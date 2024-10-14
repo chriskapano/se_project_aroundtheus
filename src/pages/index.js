@@ -116,6 +116,7 @@ const userInfo = new UserInfo({
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const editAvatarButton = document.querySelector(".profile__image");
+const editAvatarButtonPencil = document.querySelector(".profile__pencil");
 
 // FORM DATA
 const profileTitleInput = profileEditForm.querySelector(".modal__input_name");
@@ -222,5 +223,10 @@ addNewCardButton.addEventListener("click", () => {
 
 // edit avatar pop up
 editAvatarButton.addEventListener("click", () => {
+  editAvatarPopup.open();
+});
+
+// edit avatar pop up
+editAvatarButtonPencil.addEventListener("click", () => {
   editAvatarPopup.open();
 });
