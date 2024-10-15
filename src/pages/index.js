@@ -128,6 +128,9 @@ const profileDescriptionInput = profileEditForm.querySelector(
 
 function handleProfileEditSubmit(e, formValues) {
   e.preventDefault();
+
+  editCardPopup.setLoadingState(false);
+
   api
     .updateUserProfile(formValues.name, formValues.description)
     .then((updatedUserData) => {
@@ -137,11 +140,17 @@ function handleProfileEditSubmit(e, formValues) {
       });
       editCardPopup.close();
     })
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err))
+    .finally(() => {
+      editCardPopup.setLoadingState(true);
+    });
 }
 
 function handleAddCardFormSubmit(e, formValues) {
   e.preventDefault();
+
+  editCardPopup.setLoadingState(false);
+
   const { title, link } = formValues;
   api
     .addCard(title, link)
@@ -151,16 +160,25 @@ function handleAddCardFormSubmit(e, formValues) {
       e.target.reset();
       addCardFormValidator.disableButton();
     })
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err))
+    .finally(() => {
+      editCardPopup.setLoadingState(true);
+    });
 }
 
 function handleAvatarEditSubmit(e, formValue) {
   e.preventDefault();
+
+  editCardPopup.setLoadingState(false);
+
   const { link } = formValue;
   api
     .updateUserAvatar(link)
     .then()
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err))
+    .finally(() => {
+      editCardPopup.setLoadingState(true);
+    });
 }
 
 function handleDeleteCard(cardInstance, cardId) {
