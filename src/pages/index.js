@@ -13,6 +13,7 @@ const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
+const deleteButton = document.querySelector(".card__delete-button");
 
 // Import from Api
 const api = new Api({
@@ -97,7 +98,7 @@ const editAvatarPopup = new PopupWithForm(
 );
 editAvatarPopup.setEventListeners();
 
-const deleteCardPopup = new PopupWithForm("#delete-card-modal", api.deleteCard);
+const deleteCardPopup = new PopupWithForm("#delete-card-modal", () => {});
 deleteCardPopup.setEventListeners();
 
 // Import from PopupWithImage
@@ -148,10 +149,9 @@ function handleProfileEditSubmit(e, formValues) {
 
 function handleAddCardFormSubmit(e, formValues) {
   e.preventDefault();
-
   editCardPopup.setLoadingState(false);
-
   const { title, link } = formValues;
+
   api
     .addCard(title, link)
     .then((newCard) => {
@@ -182,21 +182,26 @@ function handleAvatarEditSubmit(e, formValue) {
 }
 
 function handleDeleteCard(cardInstance, cardId) {
-  if (!cardId) {
-    console.error("Card ID is undefined or missing. Unable to delete card.");
-    return;
-  }
-  console.log(`Deleting card with ID: ${cardId}`);
+  deleteCardPopup.open();
 
-  api
-    .deleteCard(cardId)
-    .then(() => {
-      console.log(`Successfully deleted card with ID: ${cardId}`);
-      cardInstance.deleteCard();
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  deleteCardPopup.setSubmitAction(() => {
+    if (!cardId) {
+      console.error("Card ID is undefined or missing. Unable to delete card.");
+      return;
+    }
+    console.log(`Deleting card with ID: ${cardId}`);
+
+    api
+      .deleteCard(cardId)
+      .then(() => {
+        console.log(`Successfully deleted card with ID: ${cardId}`);
+        cardInstance.deleteCard();
+        deleteCardPopup.close();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
 }
 
 function handlePreviewImage(cardData) {
@@ -244,7 +249,6 @@ editAvatarButton.addEventListener("click", () => {
   editAvatarPopup.open();
 });
 
-// edit avatar pop up
 editAvatarButtonPencil.addEventListener("click", () => {
   editAvatarPopup.open();
 });
