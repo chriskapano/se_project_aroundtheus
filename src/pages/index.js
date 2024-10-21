@@ -116,6 +116,7 @@ imagePopUp.setEventListeners();
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   jobSelector: ".profile__description",
+  avatarSelector: ".profile__image",
 });
 
 // Buttons and other DOM nodes
@@ -143,6 +144,9 @@ function handleAvatarEditSubmit(e, formValues) {
   api
     .updateUserAvatar(avatar)
     .then(() => {
+      return api.getUserInfo();
+    })
+    .then((userData) => {
       document.querySelector(".profile__image").src = userData.avatar;
       editAvatarPopup.close();
     })
