@@ -11,9 +11,10 @@ import Api from "../components/Api.js";
 // WRAPPERS
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
+const editAvatarModal = document.querySelector("#edit-avatar-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
-const deleteButton = document.querySelector(".card__delete-button");
+const editAvatarForm = editAvatarModal.querySelector(".modal__form");
 
 // Import from Api
 const api = new Api({
@@ -78,6 +79,9 @@ profileEditFormValidator.enableValidation();
 const addCardFormValidator = new FormValidator(settings, addCardFormElement);
 addCardFormValidator.enableValidation();
 
+// const avatarFormValidator = new FormValidator(settings, editAvatarForm);
+// avatarFormValidator.enableValidation();
+
 // Import from PopupWithForm
 
 const newCardPopup = new PopupWithForm(
@@ -127,6 +131,24 @@ const profileDescriptionInput = profileEditForm.querySelector(
 
 // FUNCTIONS
 
+function handleAvatarEditSubmit(e, formValue) {
+  e.preventDefault();
+
+  editCardPopup.setLoadingState(false);
+
+  const { link } = formValue;
+  api
+    .updateUserAvatar(link)
+    .then(() => {
+      document.querySelector(".profile__image").src = link;
+      editAvatarPopup.close();
+    })
+    .catch((err) => console.error(err))
+    .finally(() => {
+      editCardPopup.setLoadingState(true);
+    });
+}
+
 function handleProfileEditSubmit(e, formValues) {
   e.preventDefault();
 
@@ -166,35 +188,13 @@ function handleAddCardFormSubmit(e, formValues) {
     });
 }
 
-function handleAvatarEditSubmit(e, formValue) {
-  e.preventDefault();
-
-  editCardPopup.setLoadingState(false);
-
-  const { link } = formValue;
-  api
-    .updateUserAvatar(link)
-    .then()
-    .catch((err) => console.error(err))
-    .finally(() => {
-      editCardPopup.setLoadingState(true);
-    });
-}
-
 function handleDeleteCard(cardInstance, cardId) {
   deleteCardPopup.open();
 
   deleteCardPopup.setSubmitAction(() => {
-    if (!cardId) {
-      console.error("Card ID is undefined or missing. Unable to delete card.");
-      return;
-    }
-    console.log(`Deleting card with ID: ${cardId}`);
-
     api
       .deleteCard(cardId)
       .then(() => {
-        console.log(`Successfully deleted card with ID: ${cardId}`);
         cardInstance.deleteCard();
         deleteCardPopup.close();
       })
@@ -251,4 +251,9 @@ editAvatarButton.addEventListener("click", () => {
 
 editAvatarButtonPencil.addEventListener("click", () => {
   editAvatarPopup.open();
+});
+
+editAvatarForm.addEventListener("submit", (e) => {
+  const formValues = editAvatarPopup._getInputValues();
+  handleAvatarEditSubmit(e, formValues);
 });
