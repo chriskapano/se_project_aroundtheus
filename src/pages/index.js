@@ -131,21 +131,21 @@ const profileDescriptionInput = profileEditForm.querySelector(
 
 // FUNCTIONS
 
-function handleAvatarEditSubmit(e, formValue) {
+function handleAvatarEditSubmit(e, formValues) {
   e.preventDefault();
 
-  editCardPopup.setLoadingState(false);
+  editAvatarPopup.setLoadingState(false);
 
-  const { link } = formValue;
+  const { avatar } = formValues;
   api
-    .updateUserAvatar(link)
+    .updateUserAvatar(avatar)
     .then(() => {
-      document.querySelector(".profile__image").src = link;
+      document.querySelector(".profile__image").src = avatar;
       editAvatarPopup.close();
     })
     .catch((err) => console.error(err))
     .finally(() => {
-      editCardPopup.setLoadingState(true);
+      editAvatarPopup.setLoadingState(true);
     });
 }
 
