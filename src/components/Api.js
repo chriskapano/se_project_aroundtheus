@@ -54,7 +54,17 @@ export default class Api {
       body: JSON.stringify({
         avatar: link,
       }),
-    }).then(this._checkResponse);
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((error) => {
+            console.error("Error details:", error);
+            throw new Error("HTTP error! status: ${response.status}");
+          });
+        }
+        return response.json();
+      })
+      .catch((err) => console.error("Fetch error:", err));
   }
 
   // Method to add a new card

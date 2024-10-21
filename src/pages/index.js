@@ -134,16 +134,25 @@ const profileDescriptionInput = profileEditForm.querySelector(
 function handleAvatarEditSubmit(e, formValues) {
   e.preventDefault();
 
+  const { avatar } = formValues;
+  console.log("Avatar URL being sent:", avatar);
+
+  //Validate that avatar URL is not empty
+  if (!avatar || avatar.trim() === "") {
+    console.error("Avatar URL is empty or invalid");
+    alert("Please provide a valid avatar URL.");
+    return;
+  }
+
   editAvatarPopup.setLoadingState(false);
 
-  const { avatar } = formValues;
   api
     .updateUserAvatar(avatar)
     .then(() => {
       document.querySelector(".profile__image").src = avatar;
       editAvatarPopup.close();
     })
-    .catch((err) => console.error(err))
+    .catch((err) => console.error("Error in API call:", err))
     .finally(() => {
       editAvatarPopup.setLoadingState(true);
     });
@@ -246,10 +255,14 @@ addNewCardButton.addEventListener("click", () => {
 
 // edit avatar pop up
 editAvatarButton.addEventListener("click", () => {
+  const currentAvatar = document.querySelector(".profile__image").src;
+  document.querySelector("#edit-avatar-link-input").value = currentAvatar;
   editAvatarPopup.open();
 });
 
 editAvatarButtonPencil.addEventListener("click", () => {
+  const currentAvatar = document.querySelector(".profile__image").src;
+  document.querySelector("#edit-avatar-link-input").value = currentAvatar;
   editAvatarPopup.open();
 });
 
