@@ -28,6 +28,7 @@ const api = new Api({
 // Fetch and use user info
 api.getUserInfo().then((userData) => {
   userInfo.setUserInfo({ name: userData.name, job: userData.about });
+  document.querySelector(".profile__image").src = userData.avatar;
 });
 
 // Fetch and use initial cards
@@ -137,19 +138,12 @@ function handleAvatarEditSubmit(e, formValues) {
   const { avatar } = formValues;
   console.log("Avatar URL being sent:", avatar);
 
-  //Validate that avatar URL is not empty
-  // if (!avatar || avatar.trim() === "") {
-  //   console.error("Avatar URL is empty or invalid");
-  //   alert("Please provide a valid avatar URL.");
-  //   return;
-  // }
-
   editAvatarPopup.setLoadingState(false);
 
   api
     .updateUserAvatar(avatar)
     .then(() => {
-      document.querySelector(".profile__image").src = avatar;
+      document.querySelector(".profile__image").src = userData.avatar;
       editAvatarPopup.close();
     })
     .catch((err) => console.error("Error in API call:", err))
