@@ -52,7 +52,7 @@ export default class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        link: link,
+        avatar: link,
       }),
     }).then(this._checkResponse);
   }

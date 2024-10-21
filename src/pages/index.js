@@ -136,11 +136,11 @@ function handleAvatarEditSubmit(e, formValues) {
 
   editAvatarPopup.setLoadingState(false);
 
-  const { link } = formValues;
+  const { avatar } = formValues;
   api
-    .updateUserAvatar(link)
+    .updateUserAvatar(avatar)
     .then(() => {
-      document.querySelector(".profile__image").src = link;
+      document.querySelector(".profile__image").src = avatar;
       editAvatarPopup.close();
     })
     .catch((err) => console.error(err))
