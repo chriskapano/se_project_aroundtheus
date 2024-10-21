@@ -79,8 +79,8 @@ profileEditFormValidator.enableValidation();
 const addCardFormValidator = new FormValidator(settings, addCardFormElement);
 addCardFormValidator.enableValidation();
 
-// const avatarFormValidator = new FormValidator(settings, editAvatarForm);
-// avatarFormValidator.enableValidation();
+const avatarFormValidator = new FormValidator(settings, editAvatarForm);
+avatarFormValidator.enableValidation();
 
 // Import from PopupWithForm
 
@@ -138,11 +138,11 @@ function handleAvatarEditSubmit(e, formValues) {
   console.log("Avatar URL being sent:", avatar);
 
   //Validate that avatar URL is not empty
-  if (!avatar || avatar.trim() === "") {
-    console.error("Avatar URL is empty or invalid");
-    alert("Please provide a valid avatar URL.");
-    return;
-  }
+  // if (!avatar || avatar.trim() === "") {
+  //   console.error("Avatar URL is empty or invalid");
+  //   alert("Please provide a valid avatar URL.");
+  //   return;
+  // }
 
   editAvatarPopup.setLoadingState(false);
 
