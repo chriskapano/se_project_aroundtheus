@@ -28,6 +28,19 @@
   height: 330px;
 }
 
+#delete-card-modal .modal__container {
+  width: 430px;
+  height: 181px;
+}
+
+#delete-card-modal .modal__heading {
+  margin: 0;
+}
+
+#edit-avatar-modal .modal__container {
+  height: 272px;
+}
+
 .modal__close {
   background-image: url("../images/close.svg");
   background-color: transparent;
