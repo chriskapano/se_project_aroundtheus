@@ -109,7 +109,26 @@ editCardPopup.setEventListeners();
 
 const editAvatarPopup = new PopupWithForm(
   "#edit-avatar-modal",
-  handleAvatarEditSubmit
+  (formValues) => {
+    editAvatarPopup.setLoadingState(false);
+
+    api
+      .updateUserAvatar(formValues.avatar)
+      .then((updatedUserData) => {
+        userInfo.setUserInfo({
+          name: updatedUserData.name,
+          job: updatedUserData.about,
+          avatar: updatedUserData.avatar,
+        });
+        editAvatarPopup.close();
+      })
+      .catch((err) => {
+        console.error("Error updating avatar:", err);
+      })
+      .finally(() => {
+        editAvatarPopup.setLoadingState(true);
+      });
+  }
 );
 editAvatarPopup.setEventListeners();
 
@@ -143,28 +162,26 @@ const profileDescriptionInput = profileEditForm.querySelector(
 
 // FUNCTIONS
 
-function handleAvatarEditSubmit(e, formValues) {
-  e.preventDefault();
+// function handleAvatarEditSubmit(e, formValues) {
+//   e.preventDefault();
 
-  // const { avatar } = formValues;
+//   editAvatarPopup.setLoadingState(false);
 
-  editAvatarPopup.setLoadingState(false);
-
-  api
-    .updateUserAvatar(formValues.avatar)
-    .then((updatedUserData) => {
-      userInfo.setUserInfo({
-        name: updatedUserData.name,
-        job: updatedUserData.about,
-        avatar: updatedUserData.avatar,
-      });
-      editAvatarPopup.close();
-    })
-    .catch((err) => console.error("Error in API call:", err))
-    .finally(() => {
-      editAvatarPopup.setLoadingState(true);
-    });
-}
+//   api
+//     .updateUserAvatar(formValues.avatar)
+//     .then((updatedUserData) => {
+//       userInfo.setUserInfo({
+//         name: updatedUserData.name,
+//         job: updatedUserData.about,
+//         avatar: updatedUserData.avatar,
+//       });
+//       editAvatarPopup.close();
+//     })
+//     .catch((err) => console.error("Error in API call:", err))
+//     .finally(() => {
+//       editAvatarPopup.setLoadingState(true);
+//     });
+// }
 
 function handleProfileEditSubmit(e, formValues) {
   e.preventDefault();
@@ -279,7 +296,7 @@ editAvatarButtonPencil.addEventListener("click", () => {
   editAvatarPopup.open();
 });
 
-editAvatarForm.addEventListener("submit", (e) => {
-  const formValues = editAvatarPopup._getInputValues();
-  handleAvatarEditSubmit(e, formValues);
-});
+// editAvatarForm.addEventListener("submit", (e) => {
+//   const formValues = editAvatarPopup._getInputValues();
+//   handleAvatarEditSubmit(e, formValues);
+// });
