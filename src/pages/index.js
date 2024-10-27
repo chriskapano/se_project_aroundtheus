@@ -146,18 +146,18 @@ const profileDescriptionInput = profileEditForm.querySelector(
 function handleAvatarEditSubmit(e, formValues) {
   e.preventDefault();
 
-  const { avatar } = formValues;
-  console.log("Avatar URL being sent:", avatar);
+  // const { avatar } = formValues;
 
   editAvatarPopup.setLoadingState(false);
 
   api
-    .updateUserAvatar(avatar)
-    .then(() => {
-      return api.getUserInfo();
-    })
-    .then((userData) => {
-      document.querySelector(".profile__image").src = userData.avatar;
+    .updateUserAvatar(formValues.avatar)
+    .then((updatedUserData) => {
+      userInfo.setUserInfo({
+        name: updatedUserData.name,
+        job: updatedUserData.about,
+        avatar: updatedUserData.avatar,
+      });
       editAvatarPopup.close();
     })
     .catch((err) => console.error("Error in API call:", err))
@@ -177,10 +177,13 @@ function handleProfileEditSubmit(e, formValues) {
       userInfo.setUserInfo({
         name: updatedUserData.name,
         job: updatedUserData.about,
+        avatar: updatedUserData.avatar,
       });
       editCardPopup.close();
     })
-    .catch((err) => console.error(err))
+    .catch((err) => {
+      console.error("Error updating profile:", err);
+    })
     .finally(() => {
       editCardPopup.setLoadingState(true);
     });
