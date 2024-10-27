@@ -16,22 +16,14 @@ export default class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then(this._checkResponse);
   }
 
   // Method to fetch initial cards
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then(this._checkResponse);
   }
 
   // Method to update user profile info
@@ -54,17 +46,7 @@ export default class Api {
       body: JSON.stringify({
         avatar: link,
       }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((error) => {
-            console.error("Error details:", error);
-            throw new Error("HTTP error! status: ${response.status}");
-          });
-        }
-        return response.json();
-      })
-      .catch((err) => console.error("Fetch error:", err));
+    }).then(this._checkResponse);
   }
 
   // Method to add a new card
@@ -76,11 +58,7 @@ export default class Api {
         name: name,
         link: link,
       }),
-    })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then(this._checkResponse);
   }
 
   // Method to delete a card
@@ -88,11 +66,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then(this._checkResponse);
   }
 
   // Method to add like to card

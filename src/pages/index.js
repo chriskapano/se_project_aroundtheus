@@ -26,15 +26,25 @@ const api = new Api({
 });
 
 // Fetch and use user info
-api.getUserInfo().then((userData) => {
-  userInfo.setUserInfo({ name: userData.name, job: userData.about });
-  document.querySelector(".profile__image").src = userData.avatar;
-});
+api
+  .getUserInfo()
+  .then((userData) => {
+    userInfo.setUserInfo({ name: userData.name, job: userData.about });
+    document.querySelector(".profile__image").src = userData.avatar;
+  })
+  .catch((err) => {
+    console.error("Error fetching user info:", err);
+  });
 
 // Fetch and use initial cards
-api.getInitialCards().then((cardsData) => {
-  cardSection.renderItems(cardsData);
-});
+api
+  .getInitialCards()
+  .then((cardsData) => {
+    cardSection.renderItems(cardsData);
+  })
+  .catch((err) => {
+    console.error("Error fetching cards:", err);
+  });
 
 // Import from Card
 const cardSelector = "#card-template";
@@ -178,7 +188,7 @@ function handleProfileEditSubmit(e, formValues) {
 
 function handleAddCardFormSubmit(e, formValues) {
   e.preventDefault();
-  editCardPopup.setLoadingState(false);
+  newCardPopup.setLoadingState(false);
   const { title, link } = formValues;
 
   api
@@ -189,9 +199,11 @@ function handleAddCardFormSubmit(e, formValues) {
       e.target.reset();
       addCardFormValidator.disableButton();
     })
-    .catch((err) => console.error(err))
+    .catch((err) => {
+      console.error("Error adding card:", err);
+    })
     .finally(() => {
-      editCardPopup.setLoadingState(true);
+      newCardPopup.setLoadingState(true);
     });
 }
 
