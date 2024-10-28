@@ -109,7 +109,9 @@ editCardPopup.setEventListeners();
 
 const editAvatarPopup = new PopupWithForm(
   "#edit-avatar-modal",
-  (formValues) => {
+  (evt, formValues) => {
+    evt.preventDefault();
+
     editAvatarPopup.setLoadingState(false);
 
     api
