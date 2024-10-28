@@ -266,18 +266,9 @@ addNewCardButton.addEventListener("click", () => {
 
 // edit avatar pop up
 editAvatarButton.addEventListener("click", () => {
-  const currentAvatar = document.querySelector(".profile__image").src;
-  document.querySelector("#edit-avatar-link-input").value = currentAvatar;
   editAvatarPopup.open();
 });
 
 editAvatarButtonPencil.addEventListener("click", () => {
-  const currentAvatar = document.querySelector(".profile__image").src;
-  document.querySelector("#edit-avatar-link-input").value = currentAvatar;
   editAvatarPopup.open();
 });
-
-// editAvatarForm.addEventListener("submit", (e) => {
-//   const formValues = editAvatarPopup._getInputValues();
-//   handleAvatarEditSubmit(e, formValues);
-// });
