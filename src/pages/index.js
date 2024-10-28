@@ -119,7 +119,7 @@ const editAvatarPopup = new PopupWithForm(
   (evt, formValues) => {
     evt.preventDefault();
 
-    editAvatarPopup.renderLoading(false);
+    editAvatarPopup.renderLoading(true);
 
     api
       .updateUserAvatar(formValues.avatar)
@@ -135,7 +135,7 @@ const editAvatarPopup = new PopupWithForm(
         console.error("Error updating avatar:", err);
       })
       .finally(() => {
-        editAvatarPopup.renderLoading(true);
+        editAvatarPopup.renderLoading(false);
       });
   }
 );
@@ -174,7 +174,7 @@ const profileDescriptionInput = profileEditForm.querySelector(
 function handleProfileEditSubmit(e, formValues) {
   e.preventDefault();
 
-  editCardPopup.renderLoading(false);
+  editCardPopup.renderLoading(true);
 
   api
     .updateUserProfile(formValues.name, formValues.description)
@@ -190,13 +190,13 @@ function handleProfileEditSubmit(e, formValues) {
       console.error("Error updating profile:", err);
     })
     .finally(() => {
-      editCardPopup.renderLoading(true);
+      editCardPopup.renderLoading(false);
     });
 }
 
 function handleAddCardFormSubmit(e, formValues) {
   e.preventDefault();
-  newCardPopup.renderLoading(false);
+  newCardPopup.renderLoading(true);
   const { title, link } = formValues;
 
   api
@@ -211,7 +211,7 @@ function handleAddCardFormSubmit(e, formValues) {
       console.error("Error adding card:", err);
     })
     .finally(() => {
-      newCardPopup.renderLoading(true);
+      newCardPopup.renderLoading(false);
     });
 }
 
