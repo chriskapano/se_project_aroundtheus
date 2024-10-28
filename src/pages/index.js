@@ -112,7 +112,7 @@ const editAvatarPopup = new PopupWithForm(
   (evt, formValues) => {
     evt.preventDefault();
 
-    editAvatarPopup.setLoadingState(false);
+    editAvatarPopup.renderLoading(false);
 
     api
       .updateUserAvatar(formValues.avatar)
@@ -128,7 +128,7 @@ const editAvatarPopup = new PopupWithForm(
         console.error("Error updating avatar:", err);
       })
       .finally(() => {
-        editAvatarPopup.setLoadingState(true);
+        editAvatarPopup.renderLoading(true);
       });
   }
 );
@@ -164,31 +164,10 @@ const profileDescriptionInput = profileEditForm.querySelector(
 
 // FUNCTIONS
 
-// function handleAvatarEditSubmit(e, formValues) {
-//   e.preventDefault();
-
-//   editAvatarPopup.setLoadingState(false);
-
-//   api
-//     .updateUserAvatar(formValues.avatar)
-//     .then((updatedUserData) => {
-//       userInfo.setUserInfo({
-//         name: updatedUserData.name,
-//         job: updatedUserData.about,
-//         avatar: updatedUserData.avatar,
-//       });
-//       editAvatarPopup.close();
-//     })
-//     .catch((err) => console.error("Error in API call:", err))
-//     .finally(() => {
-//       editAvatarPopup.setLoadingState(true);
-//     });
-// }
-
 function handleProfileEditSubmit(e, formValues) {
   e.preventDefault();
 
-  editCardPopup.setLoadingState(false);
+  editCardPopup.renderLoading(false);
 
   api
     .updateUserProfile(formValues.name, formValues.description)
@@ -204,13 +183,13 @@ function handleProfileEditSubmit(e, formValues) {
       console.error("Error updating profile:", err);
     })
     .finally(() => {
-      editCardPopup.setLoadingState(true);
+      editCardPopup.renderLoading(true);
     });
 }
 
 function handleAddCardFormSubmit(e, formValues) {
   e.preventDefault();
-  newCardPopup.setLoadingState(false);
+  newCardPopup.renderLoading(false);
   const { title, link } = formValues;
 
   api
@@ -225,7 +204,7 @@ function handleAddCardFormSubmit(e, formValues) {
       console.error("Error adding card:", err);
     })
     .finally(() => {
-      newCardPopup.setLoadingState(true);
+      newCardPopup.renderLoading(true);
     });
 }
 
