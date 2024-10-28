@@ -59,8 +59,8 @@ export default class Card {
   }
 
   deleteCard() {
-    this._cardElement.remove();
-    this._cardElement = null;
+    this._element.remove();
+    this._element = null;
   }
 
   updateLikes() {

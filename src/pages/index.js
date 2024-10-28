@@ -26,25 +26,28 @@ const api = new Api({
 });
 
 // Fetch and use user info
-api
-  .getUserInfo()
-  .then((userData) => {
-    userInfo.setUserInfo({ name: userData.name, job: userData.about });
-    document.querySelector(".profile__image").src = userData.avatar;
-  })
-  .catch((err) => {
-    console.error("Error fetching user info:", err);
-  });
+// api
+//   .getUserInfo()
+//   .then((userData) => {
+//     userInfo.setUserInfo({
+//       name: userData.name,
+//       job: userData.about,
+//       avatar: userData.avatar,
+//     });
+//   })
+//   .catch((err) => {
+//     console.error("Error fetching user info:", err);
+//   });
 
-// Fetch and use initial cards
-api
-  .getInitialCards()
-  .then((cardsData) => {
-    cardSection.renderItems(cardsData);
-  })
-  .catch((err) => {
-    console.error("Error fetching cards:", err);
-  });
+// // Fetch and use initial cards
+// api
+//   .getInitialCards()
+//   .then((cardsData) => {
+//     cardSection.renderItems(cardsData);
+//   })
+//   .catch((err) => {
+//     console.error("Error fetching cards:", err);
+//   });
 
 // Import from Card
 const cardSelector = "#card-template";
@@ -75,11 +78,15 @@ const cardSection = new Section(
 api
   .getAppInfo()
   .then(([userData, cardsData]) => {
-    userInfo.setUserInfo({ name: userData.name, job: userData.about });
+    userInfo.setUserInfo({
+      name: userData.name,
+      job: userData.about,
+      avatar: userData.avatar,
+    });
     cardSection.renderItems(cardsData);
   })
   .catch((err) => {
-    console.error(err);
+    console.error("Error fetching app info:", err);
   });
 
 // Import from FormValidator
